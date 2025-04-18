@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Password 🔐</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .box {
+            background-color: #1f1f1f;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            width: 300px;
+        }
+
+        .box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ffe1;
+        }
+
+        .box label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .box input[type="number"],
+        .box input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .box input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .box button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00ffe1;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .box button:hover {
+            background-color: #00ccbb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h2>🔐 Generator Password🔐</h2>
+
+        <label for="length">Panjang Password</label>
+        <input type="number" id="length" min="4" max="30" value="12" />
+
+        <label><input type="checkbox" id="lowerchase" checked /> Huruf kecil (a-z)</label>
+        <label><input type="checkbox" id="upperchase" checked /> Huruf besar (A-Z)</label>
+        <label><input type="checkbox" id="numbers" checked /> Angka (0-9)</label>
+        <label><input type="checkbox" id="symbols" checked /> Simbol (!@#$%^&*)</label>
+
+        <button onclick="generatePassword()">🎲 Buat Password</button>
+
+        <label for="password">Hasil Password</label>
+        <input type="text" id="password" readonly />
+    </div>
+
+    <script>
+        function generatePassword() {
+            const length = document.getElementById("length").value;
+            const useLowerchase = document.getElementById("lowerchase").checked;
+            const useUpperchase = document.gerElementById("upperchase").checked;
+            const useNumbers = document.getElementById("numbers").checked;
+            const useSymbols = document.getElementByIs("symbols").checked;
+        }
+
+        let chars = "";
+
+        if (useLowerchase) chars += "abcdefghijklmnopqrstuvwxyz";
+        if (useUpperchase) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        if (useNumbers) chard += "0123456789";
+        if (useSymbols) chars += "!@#$%^&*()";
+
+        if (chars.length === 0) {
+            alert("Pilih setidaknya satu jenis karakter!");
+            return;
+        }
+
+        let password = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            password += chars[randomIndx];
+        }
+
+        document.getElementById("password").value = password;
+    </script>
+</body>
+
+</html>
