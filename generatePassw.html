@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Password Generator V3</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #58a6ff;
+      text-shadow: 0 0 10px #58a6ff;
+    }
+
+    .box {
+      background-color: #161b22;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #58a6ff;
+      text-align: center;
+      width: 360px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 6px;
+      background: #0d1117;
+      color: #c9d1d9;
+    }
+
+    button {
+      background-color: #58a6ff;
+      color: #0d1117;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 48%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #1f6feb;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    #strength {
+      margin-top: 10px;
+      font-size: 0.9em;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>Password Generator V3</h1>
+  <div class="box">
+    <input type="number" id="length" placeholder="Panjang password (misal 12)">
+    
+    <select id="difficulty">
+      <option value="easy">Mudah (huruf kecil + angka)</option>
+      <option value="medium">Sedang (huruf besar + kecil + angka)</option>
+      <option value="hard">Sulit (huruf + angka + simbol)</option>
+    </select>
+
+    <input type="text" id="password" placeholder="Password akan muncul di sini" readonly>
+
+    <div class="buttons">
+      <button onclick="generate()">Generate</button>
+      <button onclick="copyPassword()">Copy</button>
+    </div>
+
+    <div id="strength"></div>
+  </div>
+
+  <script>
+    function generate() {
+      const length = parseInt(document.getElementById('length').value);
+      const difficulty = document.getElementById('difficulty').value;
+
+      let chars = '';
+      if (difficulty === 'easy') {
+        chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      } else if (difficulty === 'medium') {
+        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      } else {
+        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+      }
+
+      let password = '';
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        password += chars[randomIndex];
+      }
+
+      document.getElementById('password').value = password;
+      checkStrength(password);
+    }
+
+    function copyPassword() {
+      const pass = document.getElementById('password');
+      pass.select();
+      document.execCommand("copy");
+      alert("Password berhasil disalin!");
+    }
+
+    function checkStrength(password) {
+      const text = document.getElementById('strength');
+      if (password.length < 6) {
+        text.textContent = "Kekuatan: Lemah";
+        text.style.color = "red";
+      } else if (password.length < 10) {
+        text.textContent = "Kekuatan: Sedang";
+        text.style.color = "orange";
+      } else {
+        text.textContent = "Kekuatan: Kuat";
+        text.style.color = "#58a6ff";
+      }
+    }
+  </script>
+</body>
+</html>
